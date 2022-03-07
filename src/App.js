@@ -1,10 +1,12 @@
+import "./App.scss";
+import React from "react";
+import classNames from "classnames";
 
-import './App.scss';
-
+import MainContent from "./components";
 function App() {
   return (
-    <div className="App">
-   
+    <div className={classNames("App", "movie__wrapper")}>
+      <MainContent />
     </div>
   );
 }
