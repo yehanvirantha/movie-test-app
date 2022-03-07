@@ -26,8 +26,8 @@ const SideBar = forwardRef((props, ref) => {
     }
   };
   return (
-    <div>
-      <div>
+    <div className="side__bar">
+      <div className="count">
         {movieList && movieList.length} Result {movieList.length > 1 ? "s" : ""}
       </div>
       {movieList &&
