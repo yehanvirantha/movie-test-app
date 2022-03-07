@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Slider from "react-input-slider";
 import { getSearchQueryEndpoint } from "../../../utils/Config";
-
+import "./style.scss";
 const setYear = {
   yfrom: 1970,
   yto: 2015,
@@ -30,40 +30,70 @@ const types = [
     defaultChecked: false,
   },
 ];
-const SearchOptions = (props) => {
-  const [listOpen, setListOpen] = useState(false);
-  const [filters, setFilters] = useState({ input: "", year: "", type: "" });
+const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
+  const [isError, setIsError] = useState(false);
+  const [filters, setFilters] = useState({
+    input: "",
+    year: "",
+    type: "",
+    page: 1,
+  });
   const { yfrom, yto } = setYear;
 
   useEffect(() => {
-    const { input, year, type } = filters;
-    console.log("filters", filters);
+    handleOnChange();
     return () => {};
   }, [filters.input, filters.year, filters.type]);
 
-  const handleSearch = (e) => {
-    let searchValue = e.target.value;
-    if (searchValue.length > 3) {
-      axios
-        .get(getSearchQueryEndpoint(searchValue))
-        .then((Response) => {
-          if (Response.data.Response == "True") {
-            setListOpen(true);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+  const handleOnChange = useCallback(() => {
+    const { input, year, type, page } = filters;
+    setIsError(false);
+
+    if ((year.length > 0 || type.length > 0) && input.length <= 0) {
+      setIsError(true);
+      return false;
+    } else {
+      if (input.length > 3) {
+        let searchParam = `&s=${input}&page=${page}`;
+
+        if (year > 0 ) {
+          searchParam += `&y=${year}`;
+        }
+        if (type.length > 0) {
+          searchParam += `&type=${type}`;
+        }
+        console.log("searchParam", searchParam);
+        setIsLoading({ ...isLoading, list: true });
+        // trigger http
+        axios
+          .get(getSearchQueryEndpoint(searchParam))
+          .then((Response) => {
+            setSearchResponse(Response.data);
+            setIsLoading({ ...isLoading, list: false });
+          })
+          .catch((error) => {
+            setIsLoading({ ...isLoading, list: false });
+            console.log(error);
+          });
+        return false;
+      }
     }
-  };
+  }, [filters.input, filters.year, filters.type]);
 
   return (
     <div className="filters">
       <span className="input">
         <input
           type="text"
-          onChange={(e) => setFilters({ ...filters, input: e.target.value })}
+          onChange={(e) => {
+            setFilters({ ...filters, input: e.target.value });
+          }}
         ></input>
+        {isError && (
+          <p className="error">
+            Please enter film name ( type more than 3 character)
+          </p>
+        )}
       </span>
       <span className="year__silder">
         <div>{"year: " + filters.year}</div>
@@ -74,9 +104,9 @@ const SearchOptions = (props) => {
           xmin={yfrom}
           xmax={yto}
           x={filters.year}
-          onChange={({ x }) =>
-            setFilters({ ...filters, year: parseFloat(x.toFixed(2)) })
-          }
+          onChange={({ x }) => {
+            setFilters({ ...filters, year: parseFloat(x.toFixed(2)) });
+          }}
         />
         <span>{yto}</span>
       </span>
@@ -93,9 +123,9 @@ const SearchOptions = (props) => {
                       name="type"
                       value={x.value}
                       defaultChecked={x.defaultChecked}
-                      onChange={(e) =>
-                        setFilters({ ...filters, type: e.currentTarget.value })
-                      }
+                      onChange={(e) => {
+                        setFilters({ ...filters, type: e.currentTarget.value });
+                      }}
                     />
                     {x.title}
                   </label>

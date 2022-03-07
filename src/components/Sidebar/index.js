@@ -1,45 +1,40 @@
-import React, { useImperativeHandle, forwardRef, useState } from "react";
+import React, {
+  useImperativeHandle,
+  forwardRef,
+  useState,
+  useMemo,
+} from "react";
 import axios from "axios";
 import { getSearchQueryEndpoint } from "../../utils/Config";
-
-const SideBar = forwardRef((props, ref) => {
-  const [movieList, setMovieList] = useState([]);
-
-  useImperativeHandle(ref, () => ({
-    getselectedMovieList(ref) {
-      getselectedMovieList(ref);
-    },
-  }));
-
-  const getselectedMovieList = (selectedTitle) => {
-    if (selectedTitle) {
-      axios
-        .get(getSearchQueryEndpoint(selectedTitle))
-        .then((Response) => {
-          if (Response.data.Response == "True") {
-            setMovieList(Response.data.Search);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
+import "./style.scss";
+const SideBar = ({ getSearchResponse, isLoading, setSelectedTitle }) => {
   return (
     <div className="side__bar">
-      <div className="count">
-        {movieList && movieList.length} Result {movieList.length > 1 ? "s" : ""}
-      </div>
-      {movieList &&
-        movieList.map((item, index) => (
-          <div key={index} onClick={() => props.click(item.Title)}>
-            <img src={item.Poster} />
-            <div>{item.Title}</div>
-            <div>{item.Year}</div>
+      {isLoading.list ? (
+        <span>loading ....</span>
+      ) : getSearchResponse.Response === "True" ? (
+        <div className="list__content">
+          <div className="count">
+            {getSearchResponse.totalResults} Result
+            {getSearchResponse.totalResults > 1 ? "s" : ""}
           </div>
-        ))}
+          {getSearchResponse.Search.map((item, index) => (
+            <div
+              className="item"
+              key={index}
+              onClick={() => setSelectedTitle(item.Title)}
+            >
+              <img width="80" height="80" src={item.Poster} />
+              <div>{item.Title}</div>
+              <div>{item.Year}</div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <span className="not__found"> {getSearchResponse.Error} </span>
+      )}
     </div>
   );
-});
+};
 
 export default SideBar;

@@ -1,14 +1,33 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
 import SideBar from "./Sidebar";
 import Content from "./Content";
 const MainContent = () => {
+  const [getSearchResponse, setSearchResponse] = useState("");
+  const [isLoading, setIsLoading] = useState({
+    list: false,
+    detail: false,
+  });
+  const [getSelectedTitle, setSelectedTitle] = useState("");
+
   return (
     <div className="container">
-      <Header />
+      <Header
+        setSearchResponse={setSearchResponse}
+        setIsLoading={setIsLoading}
+        isLoading={isLoading}
+      />
       <div className="main">
-        <SideBar />
-        <Content />
+        <SideBar
+          getSearchResponse={getSearchResponse}
+          isLoading={isLoading}
+          setSelectedTitle={setSelectedTitle}
+        />
+        <Content
+          getSelectedTitle={getSelectedTitle}
+          setIsLoading={setIsLoading}
+          isLoading={isLoading}
+        />
       </div>
     </div>
   );

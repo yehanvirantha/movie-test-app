@@ -1,15 +1,15 @@
 import React from "react";
 import SearchOptions from "./SearchOptions";
 
-const Header = (props) => {
-  const getSelectedTitle = (value) => {
-    props.selectedTitletoHeader(value);
-  };
-
+const Header = ({ setSearchResponse, setIsLoading, isLoading }) => {
   return (
     <div className="header">
       HEADER
-      <SearchOptions />
+      <SearchOptions
+        setSearchResponse={setSearchResponse}
+        setIsLoading={setIsLoading}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

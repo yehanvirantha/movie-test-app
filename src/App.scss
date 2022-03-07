@@ -5,5 +5,13 @@
   }
   .main {
     display: flex;
+    .side__bar {
+      flex: 30%;
+      min-height: 600px;
+      border-right: 1px solid;
+    }
+    .content {
+      flex: 70%;
+    }
   }
 }
