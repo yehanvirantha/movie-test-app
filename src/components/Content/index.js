@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+
 import { getfromTitleQueryEndpoint } from "../../utils/Config";
+import { Button } from "../Layout/Button";
 
 const Content = ({ getSelectedTitle, setIsLoading, isLoading }) => {
   useEffect(() => {
@@ -44,6 +47,8 @@ const Content = ({ getSelectedTitle, setIsLoading, isLoading }) => {
             <span>{movieDetails.Runtime}</span>
             <span>{movieDetails.Actors}</span>
             <span>{movieDetails.Plot}</span>
+
+            <Button type="button" title="Watchlist" icon={faCoffee} />
             {movieDetails.Ratings &&
               movieDetails.Ratings.map((item) => (
                 <div>

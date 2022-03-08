@@ -1,35 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Slider from "react-input-slider";
-import { getSearchQueryEndpoint } from "../../../utils/Config";
 import "./style.scss";
-const setYear = {
-  yfrom: 1970,
-  yto: 2015,
-};
 
-const types = [
-  {
-    title: "Any",
-    value: "",
-    defaultChecked: true,
-  },
-  {
-    title: "Movie",
-    value: "movie",
-    defaultChecked: false,
-  },
-  {
-    title: "Series",
-    value: "series",
-    defaultChecked: false,
-  },
-  {
-    title: "Episode",
-    value: "episode",
-    defaultChecked: false,
-  },
-];
+import { getSearchQueryEndpoint } from "../../../utils/Config";
+import { setYear, types } from "../../../utils/Constant";
+
+import { RadioInput } from "../../Layout/RadioInput";
+import { SearchInput } from "../../Layout/SearchInput";
+
 const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
   const [isError, setIsError] = useState(false);
   const [filters, setFilters] = useState({
@@ -56,7 +35,7 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
       if (input.length > 3) {
         let searchParam = `&s=${input}&page=${page}`;
 
-        if (year > 0 ) {
+        if (year > 0) {
           searchParam += `&y=${year}`;
         }
         if (type.length > 0) {
@@ -83,12 +62,7 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
   return (
     <div className="filters">
       <span className="input">
-        <input
-          type="text"
-          onChange={(e) => {
-            setFilters({ ...filters, input: e.target.value });
-          }}
-        ></input>
+        <SearchInput setFilters={setFilters} filters={filters} />
         {isError && (
           <p className="error">
             Please enter film name ( type more than 3 character)
@@ -117,18 +91,14 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
             {types.map((x, index) => {
               return (
                 <li key={index}>
-                  <label>
-                    <input
-                      type="radio"
-                      name="type"
-                      value={x.value}
-                      defaultChecked={x.defaultChecked}
-                      onChange={(e) => {
-                        setFilters({ ...filters, type: e.currentTarget.value });
-                      }}
-                    />
-                    {x.title}
-                  </label>
+                  <RadioInput
+                    value={x.value}
+                    defaultChecked={x.defaultChecked}
+                    setFilters={setFilters}
+                    filters={filters}
+                    title={x.title}
+                    className={"label"}
+                  />
                 </li>
               );
             })}
