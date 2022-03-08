@@ -90,7 +90,7 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
           <ul>
             {types.map((x, index) => {
               return (
-                <li key={index}>
+                <li key={`${index}_${x.value}`}>
                   <RadioInput
                     value={x.value}
                     defaultChecked={x.defaultChecked}
