@@ -1,5 +1,7 @@
 import React, { memo } from "react";
 import "./style.scss";
+import { Image } from "../Layout/Image";
+import ResultCount from "./ResultCount";
 
 const SideBar = ({ getSearchResponse, isLoading, setSelectedTitle }) => {
   return (
@@ -8,17 +10,14 @@ const SideBar = ({ getSearchResponse, isLoading, setSelectedTitle }) => {
         <span>loading ....</span>
       ) : getSearchResponse.Response === "True" ? (
         <div className="list__content">
-          <div className="count">
-            {getSearchResponse.totalResults} Result
-            {getSearchResponse.totalResults > 1 ? "s" : ""}
-          </div>
+          <ResultCount count={getSearchResponse.totalResults} />
           {getSearchResponse.Search.map((item, index) => (
             <div
               className="item"
               key={index}
               onClick={() => setSelectedTitle(item.Title)}
             >
-              <img width="80" height="80" src={item.Poster} />
+              <Image imgLink={item.Poster} className="image" />
               <div>{item.Title}</div>
               <div>{item.Year}</div>
             </div>

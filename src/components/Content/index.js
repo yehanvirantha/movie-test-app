@@ -4,6 +4,7 @@ import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 import { getfromTitleQueryEndpoint } from "../../utils/Config";
 import { Button } from "../Layout/Button";
+import { Image } from "../Layout/Image";
 
 const Content = ({ getSelectedTitle, setIsLoading, isLoading }) => {
   useEffect(() => {
@@ -40,7 +41,7 @@ const Content = ({ getSelectedTitle, setIsLoading, isLoading }) => {
       ) : (
         movieDetails && (
           <>
-            <img src={movieDetails.Poster} />
+            <Image imgLink={movieDetails.Poster} />
             <span>{movieDetails.Title}</span>
             <span>{movieDetails.Year}</span>
             <span>{movieDetails.Genre}</span>
