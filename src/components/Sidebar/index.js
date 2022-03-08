@@ -9,20 +9,20 @@ const SideBar = ({ getSearchResponse, isLoading, setSelectedTitle }) => {
       {isLoading.list ? (
         <span>loading ....</span>
       ) : getSearchResponse.Response === "True" ? (
-        <div className="list__content">
+        <ul className="list__content">
           <ResultCount count={getSearchResponse.totalResults} />
           {getSearchResponse.Search.map((item, index) => (
-            <div
+            <li
               className="item"
-              key={index}
+              key={`${index}_${item.Title}`}
               onClick={() => setSelectedTitle(item.Title)}
             >
               <Image imgLink={item.Poster} className="image" />
               <div>{item.Title}</div>
               <div>{item.Year}</div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       ) : (
         <span className="not__found"> {getSearchResponse.Error} </span>
       )}

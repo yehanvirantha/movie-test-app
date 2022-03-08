@@ -9,6 +9,7 @@ const MainContent = () => {
     detail: false,
   });
   const [getSelectedTitle, setSelectedTitle] = useState("");
+  const [watchlist, setWatchlist] = useState([]);
 
   return (
     <div className="container">
@@ -27,6 +28,8 @@ const MainContent = () => {
           getSelectedTitle={getSelectedTitle}
           setIsLoading={setIsLoading}
           isLoading={isLoading}
+          watchlist={watchlist}
+          setWatchlist={setWatchlist}
         />
       </div>
     </div>
