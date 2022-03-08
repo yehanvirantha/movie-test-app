@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, memo } from "react";
 import axios from "axios";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
@@ -63,4 +63,4 @@ const Content = ({ getSelectedTitle, setIsLoading, isLoading }) => {
   );
 };
 
-export default Content;
+export default memo(Content);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Slider from "react-input-slider";
-import "./style.scss";
+import styles from "./style.module.scss";
 
 import { getSearchQueryEndpoint } from "../../../utils/Config";
 import { setYear, types } from "../../../utils/Constant";
@@ -41,7 +41,6 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
         if (type.length > 0) {
           searchParam += `&type=${type}`;
         }
-        console.log("searchParam", searchParam);
         setIsLoading({ ...isLoading, list: true });
         // trigger http
         axios
@@ -64,7 +63,7 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
       <span className="input">
         <SearchInput setFilters={setFilters} filters={filters} />
         {isError && (
-          <p className="error">
+          <p className={styles.error}>
             Please enter film name ( type more than 3 character)
           </p>
         )}

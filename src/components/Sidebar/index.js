@@ -1,12 +1,6 @@
-import React, {
-  useImperativeHandle,
-  forwardRef,
-  useState,
-  useMemo,
-} from "react";
-import axios from "axios";
-import { getSearchQueryEndpoint } from "../../utils/Config";
+import React, { memo } from "react";
 import "./style.scss";
+
 const SideBar = ({ getSearchResponse, isLoading, setSelectedTitle }) => {
   return (
     <div className="side__bar">
@@ -37,4 +31,4 @@ const SideBar = ({ getSearchResponse, isLoading, setSelectedTitle }) => {
   );
 };
 
-export default SideBar;
+export default memo(SideBar);
