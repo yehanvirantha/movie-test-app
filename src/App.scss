@@ -1,17 +1,33 @@
 .container {
-  .header {
-    padding-bottom: 10px;
-    border-bottom: 1px solid;
-  }
-  .main {
-    display: flex;
-    .side__bar {
-      flex: 30%;
-      min-height: 600px;
-      border-right: 1px solid;
+    max-width: 1200px;
+    margin: auto;
+    color: #636363;
+    font-family: sans-serif;
+
+    .header {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #c1c1c1;
     }
-    .content {
-      flex: 70%;
+
+    .main {
+        display: flex;
+
+        .side__bar {
+            width: 40%;
+            max-height: 100vh;
+            overflow-x: auto;
+        }
     }
-  }
+
+    .loader {
+        text-align: center;
+        width: 100%;
+        display: inline-block;
+    }
+
+    .list__content {
+        .count {
+            padding: 10px 0 10px 20px;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, memo, useCallback } from "react";
 import axios from "axios";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import styles from "./Content.module.scss";
 
 import { getfromTitleQueryEndpoint } from "../../utils/Config";
 import { Button } from "../Layout/Button";
@@ -57,35 +58,44 @@ const Content = ({
   );
 
   return (
-    <div className="content">
+    <div className={styles.content}>
       {isLoading.detail ? (
-        <span>loading ....</span>
+        <span className="loader">loading ....</span>
       ) : (
         movieDetails && (
           <>
+          <div className={styles.content_top_container}>
             <Image imgLink={movieDetails.Poster} />
-            <span>{movieDetails.Title}</span>
-            <span>{movieDetails.Year}</span>
-            <span>{movieDetails.Genre}</span>
-            <span>{movieDetails.Runtime}</span>
-            <span>{movieDetails.Actors}</span>
-            <span>{movieDetails.Plot}</span>
-            <Button
-              type="button"
-              title={`Watchlist${
-                watchlist.includes(movieDetails.Title) ? "ed" : ""
-              }`}
-              icon={faBookmark}
-              onClick={updateWatchlist}
-              param={movieDetails.Title}
-            />
-            {movieDetails.Ratings &&
-              movieDetails.Ratings.map((item) => (
-                <div>
-                  <span>{item.Value}</span>
-                  <span>{item.Source}</span>
-                </div>
-              ))}
+            <div className={styles.content_top_detail}>
+              <Button
+                  type="button"
+                  title={`Watchlist${
+                      watchlist.includes(movieDetails.Title) ? "ed" : ""
+                  }`}
+                  icon={faBookmark}
+                  onClick={updateWatchlist}
+                  param={movieDetails.Title}
+              />
+              <div className={styles.movie_title}>{movieDetails.Title}</div>
+              <div className={styles.movie_details_all}>
+              <span className={styles.movie_rate}>{movieDetails.Rated}</span>
+              <span>{movieDetails.Year}</span>
+              <span>{movieDetails.Genre}</span>
+              <span>{movieDetails.Runtime}</span>
+              <div>{movieDetails.Actors}</div>
+              </div>
+            </div>
+          </div>
+            <div className={styles.movie_details}>{movieDetails.Plot}</div>
+            <div className={styles.movie_ratings}>
+              {movieDetails.Ratings &&
+                movieDetails.Ratings.map((item) => (
+                  <div>
+                    <div>{item.Value}</div>
+                    <div>{item.Source}</div>
+                  </div>
+                ))}
+            </div>
           </>
         )
       )}
