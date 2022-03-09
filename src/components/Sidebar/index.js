@@ -7,7 +7,7 @@ const SideBar = ({ getSearchResponse, isLoading, setSelectedTitle }) => {
   return (
     <div className="side__bar">
       {isLoading.list ? (
-        <span>loading ....</span>
+          <span className="loader">loading ....</span>
       ) : getSearchResponse.Response === "True" ? (
         <ul className="list__content">
           <ResultCount count={getSearchResponse.totalResults} />

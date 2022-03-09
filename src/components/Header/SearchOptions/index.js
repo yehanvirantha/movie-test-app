@@ -8,6 +8,8 @@ import { setYear, types } from "../../../utils/Constant";
 
 import { RadioInput } from "../../Layout/RadioInput";
 import { SearchInput } from "../../Layout/SearchInput";
+import { Icon } from "../../Layout/Icon";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
   const [isError, setIsError] = useState(false);
@@ -60,17 +62,21 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
 
   return (
     <div className="filters">
-      <span className="input">
-        <SearchInput setFilters={setFilters} filters={filters} />
+      <span className={styles.search_input}>
+        <span>
+          <Icon icon={faSearch}/>
+          <SearchInput setFilters={setFilters} filters={filters} />
+        </span>
         {isError && (
           <p className={styles.error}>
             Please enter film name ( type more than 3 character)
           </p>
         )}
       </span>
-      <span className="year__silder">
-        <div>{"year: " + filters.year}</div>
-        <span>{yfrom}</span>
+      <span className={styles.yearslider}>
+        <label>{"Year " + filters.year}</label>
+        <div>
+        <span>{yfrom} </span>
         <Slider
           axis="x"
           xstep={1}
@@ -82,14 +88,15 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
           }}
         />
         <span>{yto}</span>
+        </div>
       </span>
       <span className="type">
-        <div>Type</div>
+        <label>Type</label>
         <span>
-          <ul>
+          <div>
             {types.map((x, index) => {
               return (
-                <li key={`${index}_${x.value}`}>
+                <span key={`${index}_${x.value}`}>
                   <RadioInput
                     value={x.value}
                     defaultChecked={x.defaultChecked}
@@ -98,10 +105,10 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
                     title={x.title}
                     className={"label"}
                   />
-                </li>
+                </span>
               );
             })}
-          </ul>
+          </div>
         </span>
       </span>
     </div>

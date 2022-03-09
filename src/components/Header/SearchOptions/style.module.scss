@@ -1,4 +1,42 @@
 .error {
-  color: red;
-  margin: 0;
+    color: red;
+    margin: 0;
+}
+
+label {
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.search_input {
+    width: 35%;
+
+    input {
+        margin-top: 10px;
+        height: 35px;
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #cccccc;
+        color: #cccccc;
+        font-size: 21px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.yearslider {
+    span {
+        margin: 0 10px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }

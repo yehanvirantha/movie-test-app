@@ -75,6 +75,7 @@ const Content = ({
                   icon={faBookmark}
                   onClick={updateWatchlist}
                   param={movieDetails.Title}
+                  className={styles.watchlist_button}
               />
               <div className={styles.movie_title}>{movieDetails.Title}</div>
               <div className={styles.movie_details_all}>
