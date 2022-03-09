@@ -8,21 +8,31 @@ label {
     display: inline-block;
 }
 
-.search_input {
+.search_input_container {
     width: 35%;
+    margin-top: 10px;
 
-    input {
-        margin-top: 10px;
-        height: 35px;
-        width: 100%;
-        background: transparent;
-        border: none;
-        border-bottom: 1px solid #cccccc;
-        color: #cccccc;
-        font-size: 21px;
+    .search_input {
+        display: flex;
+        align-items: center;
 
-        &:focus {
-            outline: none;
+        input {
+            height: 35px;
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #cccccc;
+            color: #cccccc;
+            font-size: 21px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        > span {
+            font-size: 24px;
+            margin-right: 10px;
         }
     }
 }

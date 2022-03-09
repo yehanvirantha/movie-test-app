@@ -62,8 +62,8 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
 
   return (
     <div className="filters">
-      <span className={styles.search_input}>
-        <span>
+      <span className={styles.search_input_container}>
+        <span className={styles.search_input}>
           <Icon icon={faSearch} />
           <SearchInput setFilters={setFilters} filters={filters} />
         </span>
@@ -74,7 +74,7 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
         )}
       </span>
       <span className={styles.yearslider}>
-        <label>Year{filters.year > "1970" && filters.year}</label>
+        <label>YEAR {filters.year > "1970" && filters.year}</label>
         <div>
           <span>{yfrom} </span>
           <Slider
@@ -91,7 +91,7 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
         </div>
       </span>
       <span className="type">
-        <label>Type</label>
+        <label>TYPE</label>
         <span>
           <div>
             {types.map((x, index) => {
