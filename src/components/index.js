@@ -8,7 +8,7 @@ const MainContent = () => {
     list: false,
     detail: false,
   });
-  const [getSelectedTitle, setSelectedTitle] = useState("");
+  const [getSelectedID, setSelectedID] = useState("");
   const [watchlist, setWatchlist] = useState([]);
 
   return (
@@ -22,10 +22,10 @@ const MainContent = () => {
         <SideBar
           getSearchResponse={getSearchResponse}
           isLoading={isLoading}
-          setSelectedTitle={setSelectedTitle}
+          setSelectedID={setSelectedID}
         />
         <Content
-          getSelectedTitle={getSelectedTitle}
+          getSelectedID={getSelectedID}
           setIsLoading={setIsLoading}
           isLoading={isLoading}
           watchlist={watchlist}

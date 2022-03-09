@@ -30,14 +30,14 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
     const { input, year, type, page } = filters;
     setIsError(false);
 
-    if ((year.length > 0 || type.length > 0) && input.length <= 0) {
+    if ((year > 0 || type.length > 0) && input.length <= 0) {
       setIsError(true);
       return false;
     } else {
       if (input.length > 3) {
         let searchParam = `&s=${input}&page=${page}`;
 
-        if (year > 0) {
+        if (year > "1970") {
           searchParam += `&y=${year}`;
         }
         if (type.length > 0) {
@@ -64,7 +64,7 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
     <div className="filters">
       <span className={styles.search_input}>
         <span>
-          <Icon icon={faSearch}/>
+          <Icon icon={faSearch} />
           <SearchInput setFilters={setFilters} filters={filters} />
         </span>
         {isError && (
@@ -74,20 +74,20 @@ const SearchOptions = ({ setSearchResponse, setIsLoading, isLoading }) => {
         )}
       </span>
       <span className={styles.yearslider}>
-        <label>{"Year " + filters.year}</label>
+        <label>Year{filters.year > "1970" && filters.year}</label>
         <div>
-        <span>{yfrom} </span>
-        <Slider
-          axis="x"
-          xstep={1}
-          xmin={yfrom}
-          xmax={yto}
-          x={filters.year}
-          onChange={({ x }) => {
-            setFilters({ ...filters, year: parseFloat(x.toFixed(2)) });
-          }}
-        />
-        <span>{yto}</span>
+          <span>{yfrom} </span>
+          <Slider
+            axis="x"
+            xstep={1}
+            xmin={yfrom}
+            xmax={yto}
+            x={filters.year}
+            onChange={({ x }) => {
+              setFilters({ ...filters, year: parseFloat(x.toFixed(2)) });
+            }}
+          />
+          <span>{yto}</span>
         </div>
       </span>
       <span className="type">

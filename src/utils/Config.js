@@ -3,9 +3,9 @@ class api {
   getSearchQueryEndpoint(searchitem) {
     return `http://www.omdbapi.com/?apikey=` + APIKEY() + searchitem;
   }
-  getfromTitleQueryEndpoint(searchitem) {
-    return `http://www.omdbapi.com/?apikey=` + APIKEY() + `&T=` + searchitem;
+  getfromIDQueryEndpoint(searchitem) {
+    return `http://www.omdbapi.com/?apikey=` + APIKEY() + `&I=` + searchitem;
   }
 }
 
-export const { getSearchQueryEndpoint, getfromTitleQueryEndpoint } = new api();
+export const { getSearchQueryEndpoint, getfromIDQueryEndpoint } = new api();
